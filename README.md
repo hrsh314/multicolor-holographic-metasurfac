@@ -29,6 +29,7 @@ Using the optimal length and width dimensions identified in the previous step, s
 
 ### 3. Single-Colour Validation
 Create individual, single-colour metasurfaces utilizing the extracted phase data. Run independent simulations to project the red flower and the green leaves separately, verifying that each target image reconstructs successfully with its respective phase mask.
+
 <img width="349" height="305" alt="Picture5" src="https://github.com/user-attachments/assets/6d2265bb-976c-456b-9118-26f3a124c193" />
 <img width="345" height="307" alt="Picture6" src="https://github.com/user-attachments/assets/5f391b20-94be-4835-a942-3eaf63ecfa68" />
 
