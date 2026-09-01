@@ -4,63 +4,24 @@ This repository contains the design, phase library, and Lumerical FDTD simulatio
 
 ## Device Architecture
 The metasurface operates with Right-Circularly Polarized (RCP) incident light, evaluating the Left-Circularly Polarized (LCP) light on the transmitted side.  
-<img width="468" height="386" alt="Picture1" src="https://github.com/user-attachments/assets/76d57d3b-6937-431f-8f48-cdec3c8d8455" />
 
-
-* **Spatial Multiplexing:** The meta-atoms are arranged in a diagonal segmented quadrant layout, where two diagonally opposite areas are mapped for red light and the remaining two are mapped for green.
-* **Stack Integration:** An active liquid crystal layer is integrated directly below the metasurface layer to modulate the optical response.
+* **Material Stack:** The device utilizes a straightforward two-layer architecture consisting of a Silicon Dioxide (SiO2) substrate with Polycrystalline Silicon (Poly Si) meta-atoms patterned on top.
+* **Metasurface Construction:** The design scales from independent single-colour metasurfaces up to a fully integrated multicolour architecture.
+* **Spatial Multiplexing:** To achieve multicolour projection, both the red-diffracting and green-diffracting meta-atoms are placed diagonally within a single unit cell and spatially multiplexed.
 * **Unit Cell Periodicity:** The unit cells were rigorously evaluated at periodicities of both **P = 400 nm** and **P = 350 nm**.  
 
-## Holographic Reconstruction
-The phase masks map target images with a CGH pixel size of 20. To achieve a high-quality floating holographic effect, the white background is computationally removed from the target projection images before applying the phase retrieval algorithms.  
-
-* **Red Reconstruction:** Projects a floating flower hologram at **λ = 633 nm**, achieving a Root Mean Square Error (RMSE) of 0.1018.  
-* **Green Reconstruction:** Projects a leaf structure at **λ = 532 nm**, achieving an RMSE of 0.0731.  
-
 ## Simulation Workflow & Usage
 
-The simulation pipeline is executed in three primary sequential steps:
+The simulation pipeline is executed in four sequential steps to ensure pure colour projection and eliminate crosstalk:
 
-### 1. Diffraction Efficiency (DE) & PCR Optimization
-Run the PCR simulation script to determine the ideal meta-atom dimensions for minimizing cross-talk between colours.
-* The script creates a unit cell meta-atom and sweeps its length and width.
-* It outputs heatmaps of DE and PCR for both 633 nm and 532 nm wavelengths.
-* **Selection Criteria:** The optimal length and width for the red meta-atom are selected at the exact point where the DE for red light is maximized while the DE for green light is minimized. The exact inverse logic is used to select the dimensions for the green meta-atom. 
+### 1. Meta-Atom Simulation & Optimization
+Simulate the unit meta-atoms for both red and green colours to generate Phase Conversion Ratio (PCR) and Diffraction Efficiency (DE) heatmaps. Using these graphs, select specific length and width dimensions ensuring that the red meta-atom diffracts exclusively red light, and the green meta-atom diffracts exclusively green light.
 
-### 2. Geometric Phase Library Generation
-Once the precise length and width dimensions are established, generate the lookup tables:
+### 2. Geometric Phase Shift Extraction
+Using the optimal length and width dimensions identified in the previous step, systematically rotate the meta-atoms to extract the geometric phase response and achieve a full 2π phase shift.
 
-# Multicolour Holographic Metasurfaces
+### 3. Single-Colour Validation
+Create individual, single-colour metasurfaces utilizing the extracted phase data. Run independent simulations to project the red flower and the green leaves separately, verifying that each target image reconstructs successfully with its respective phase mask.
 
-This repository contains the design, phase library, and Lumerical FDTD simulation pipeline for a multicolour hologram utilizing geometric phase metasurfaces. The workflow applies the Gerchberg-Saxton (GS) algorithm for Computer-Generated Holography (CGH) to extract target phase masks for individual colours.  
-
-## Device Architecture
-The metasurface operates with Right-Circularly Polarized (RCP) incident light, evaluating the Left-Circularly Polarized (LCP) light on the transmitted side[cite: 2].  
-
-* **Spatial Multiplexing:** The meta-atoms are arranged in a diagonal segmented quadrant arrangement, where two diagonally opposite areas are mapped for red light and two for green light.
-* **Stack Integration:** An active liquid crystal layer is integrated directly below the metasurface layer to modulate the optical response.
-* **Unit Cell Periodicity:** The unit cells were rigorously evaluated at periodicities of both **P = 400 nm** and **P = 350 nm**[cite: 2].  
-
-## Holographic Reconstruction
-The phase masks map target images with a CGH pixel size of 20[cite: 2]. To achieve a high-quality floating holographic effect, the white background is computationally removed from the target projection images before applying the phase retrieval algorithms.  
-
-* **Red Reconstruction:** Projects a floating flower hologram at **λ = 633 nm**, achieving a Root Mean Square Error (RMSE) of 0.1018[cite: 2].  
-* **Green Reconstruction:** Projects a leaf structure at **λ = 532 nm**, achieving an RMSE of 0.0731[cite: 2].  
-
-## Simulation Workflow & Usage
-
-The simulation pipeline is executed in three primary sequential steps:
-
-### 1. Diffraction Efficiency (DE) & PCR Optimization
-Run the PCR simulation script to determine the ideal meta-atom dimensions for minimizing cross-talk between colours.
-* The script creates a unit cell meta-atom and sweeps its length and width.
-* It outputs heatmaps of DE and PCR for both 633 nm and 532 nm wavelengths.
-* **Selection Criteria:** The optimal length and width for the red meta-atom are selected at the exact point where the DE for red light is maximized while the DE for green light is minimized. The exact inverse logic is used to select the dimensions for the green meta-atom. 
-
-### 2. Geometric Phase Library Generation
-Once the precise length and width dimensions are established, generate the lookup tables:
-
-```bash
-python Geometric_phase_lib.py
-```bash
-python Geometric_phase_lib.py
+### 4. Multicolour Integration & Final Testing
+Once the single-colour projections are validated, place both the red and green meta-atoms diagonally into a single unit cell to generate the final multicolour metasurface. Test the combined structure by injecting the colours individually: verify that injecting only red light projects the red flower, and injecting only green light projects the green leaves. Confirming these isolated projections guarantees that injecting both wavelengths simultaneously will successfully project the complete, multicolour holographic image.
