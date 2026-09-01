@@ -4,7 +4,8 @@ This repository contains the design, phase library, and Lumerical FDTD simulatio
 
 ## Device Architecture
 The metasurface operates with Right-Circularly Polarized (RCP) incident light, evaluating the Left-Circularly Polarized (LCP) light on the transmitted side.  
-![Uploading Picture1.png…]()
+<img width="468" height="386" alt="Picture1" src="https://github.com/user-attachments/assets/76d57d3b-6937-431f-8f48-cdec3c8d8455" />
+
 
 * **Spatial Multiplexing:** The meta-atoms are arranged in a diagonal segmented quadrant layout, where two diagonally opposite areas are mapped for red light and the remaining two are mapped for green.
 * **Stack Integration:** An active liquid crystal layer is integrated directly below the metasurface layer to modulate the optical response.
